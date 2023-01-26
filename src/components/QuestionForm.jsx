@@ -2,19 +2,20 @@
 import { useState, useEffect } from 'react'
 
 function QuestionForm() {
-    const [isInputError1, setInputError] = useState(JSON.parse(localStorage.getItem("error_input_key")))
+    const [isInputError, setInputError] = useState(JSON.parse(localStorage.getItem("error_input_key")))
     const [inputValue, setInputValue] = useState('Posez votre question ici')
     
    
     useEffect(() => {
-        window.localStorage.setItem('error_input_key', isInputError1)},[isInputError1]
+        localStorage.setItem('error_input_key', JSON.stringify(isInputError))},[isInputError]
     )
 
 
 
     function checkValue(value) {
-        if (inputValue.includes('f')) { setInputError(true); window.location.reload() }
+        if (value.includes('f')) { setInputError(true); }
         else {
+            setInputError(false);
             setInputValue(value)
             }
     }
@@ -26,7 +27,7 @@ function QuestionForm() {
     return (
 
         <div>
-            {isInputError1 && (
+            {isInputError && (
                 <div>🔥 Vous n'avez pas le droit d'utiliser la lettre "f" ici.</div>
             )}
             <textarea
@@ -34,7 +35,7 @@ function QuestionForm() {
                 onChange={(e) => checkValue(e.target.value)}
             />
 
-            <button onClick={() =>{checkValue(inputValue);alert(inputValue); setInputError(false) }}>Alertez moi 🚨</button>
+            <button onClick={() =>{alert(inputValue); setInputError(false) }}>Alertez moi 🚨</button>
 
         </div>
 
