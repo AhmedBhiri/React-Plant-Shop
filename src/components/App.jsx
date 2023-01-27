@@ -6,12 +6,14 @@ import logo from '../assets/logo.png'
 import Recommendation from './recommendation';
 import '../styles/layout.css';
 import Footer from "./Footer";
-function App() {
+import { useState } from 'react'
 
+function App() {
+  const [cart, updateCart] = useState([])
   return (
     <div className="App">
 
-      <header className="App-header">
+      
         <Banner>
           <head className="lmjhead">
             <img src={logo} alt='La maison jungle' className='lmjlogo' />
@@ -23,10 +25,10 @@ function App() {
 
         
 
-      </header>
+      
       <div className='lmj-layout-inner'>
-				<Cart />
-				<ShoppingList />
+				<Cart cart={cart} updateCart={updateCart}/>
+				<ShoppingList cart={cart} updateCart={updateCart} />
 			</div>
       <Footer/>
     </div>
