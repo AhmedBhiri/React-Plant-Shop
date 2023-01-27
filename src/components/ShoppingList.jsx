@@ -4,13 +4,33 @@ import { plantList } from '../datas/plantList'
 import '../styles/ShoppingList.css'
 import PlantItem from './PlantItem'
 
-function ShoppingList({ cart, updateCart }){
+
+
+
+function ShoppingList({ cart, updateCart, isOpen, setIsOpen }){
+    
+    function addToCart(name, price) {
+        const currentPlantSaved = cart.find((plant) => plant.name === name)
+        if (currentPlantSaved) {
+            const cartFilteredCurrentPlant = cart.filter(
+                (plant) => plant.name !== name
+            )
+            updateCart([
+                ...cartFilteredCurrentPlant,
+                { name, price, amount: currentPlantSaved.amount + 1 }
+            ])
+        } else {
+            updateCart([...cart, { name, price, amount: 1 }])
+        }
+    }
+
 
     const categories = plantList.reduce(
 		(acc, plant) =>
 			acc.includes(plant.category) ? acc : acc.concat(plant.category),
 		[]
 	)
+    
 
     return (
         <div className='lmj-shopping-list'>
@@ -21,8 +41,8 @@ function ShoppingList({ cart, updateCart }){
 			</ul>
 			
             <ul className='lmj-plant-list'>
-                
-                {plantList.map(({ id, cover, name, water, light }) => (
+               
+                    {plantList.map(({ id, cover, name, water, light, price }) => (
                         <div key={id}>
                             <PlantItem
                             id={id}
@@ -31,9 +51,7 @@ function ShoppingList({ cart, updateCart }){
                             water={water}
                             light={light}
                             />
-                            <button onClick={() => updateCart(cart + 1)}>
-                              Ajouter
-                            </button>
+                            <button onClick={() => {addToCart(name, price); setIsOpen([true])}}>Ajouter </button>
                         </div>  
                     ))}
 			

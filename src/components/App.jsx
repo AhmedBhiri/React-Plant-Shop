@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import { useState } from 'react'
 
 function App() {
+  const [isOpen, setIsOpen] = useState([false])
   const [cart, updateCart] = useState([])
   return (
     <div className="App">
@@ -27,8 +28,8 @@ function App() {
 
       
       <div className='lmj-layout-inner'>
-				<Cart cart={cart} updateCart={updateCart}/>
-				<ShoppingList cart={cart} updateCart={updateCart} />
+				<Cart cart={cart} isOpen={isOpen} setIsOpen={setIsOpen} updateCart={updateCart}/>
+				<ShoppingList cart={cart} updateCart={updateCart} setIsOpen={setIsOpen} />
 			</div>
       <Footer/>
     </div>
