@@ -9,7 +9,7 @@ import Footer from "./Footer";
 import { useState } from 'react'
 
 function App() {
-  const [isOpen, setIsOpen] = useState([false])
+  const [isOpen, setIsOpen] = useState(false)
   const [cart, updateCart] = useState([])
   return (
     <div className="App">

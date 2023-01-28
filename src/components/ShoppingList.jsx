@@ -3,12 +3,18 @@
 import { plantList } from '../datas/plantList'
 import '../styles/ShoppingList.css'
 import PlantItem from './PlantItem'
-
-
+import Categories from './Categories'
+import { useState } from 'react'
 
 
 function ShoppingList({ cart, updateCart, isOpen, setIsOpen }){
-    
+    const [activeCategory, setActiveCategory] = useState('')
+    const categories = plantList.reduce(
+		(acc, plant) =>
+			acc.includes(plant.category) ? acc : acc.concat(plant.category),
+		[]
+	) 
+
     function addToCart(name, price) {
         const currentPlantSaved = cart.find((plant) => plant.name === name)
         if (currentPlantSaved) {
@@ -25,24 +31,17 @@ function ShoppingList({ cart, updateCart, isOpen, setIsOpen }){
     }
 
 
-    const categories = plantList.reduce(
-		(acc, plant) =>
-			acc.includes(plant.category) ? acc : acc.concat(plant.category),
-		[]
-	)
+    
     
 
     return (
         <div className='lmj-shopping-list'>
-			<ul>
-				{categories.map((cat) => (
-					<li key={cat}>{cat}</li>
-				))}
-			</ul>
-			
+			<Categories categories={categories} setActiveCategory={setActiveCategory}
+                        activeCategory={activeCategory}/>
             <ul className='lmj-plant-list'>
                
-                    {plantList.map(({ id, cover, name, water, light, price }) => (
+                    {plantList.map(({ id, cover, name, water, light, price, category }) => (
+                        activeCategory === category || activeCategory==='' ? ( 
                         <div key={id}>
                             <PlantItem
                             id={id}
@@ -51,8 +50,9 @@ function ShoppingList({ cart, updateCart, isOpen, setIsOpen }){
                             water={water}
                             light={light}
                             />
-                            <button onClick={() => {addToCart(name, price); setIsOpen([true])}}>Ajouter </button>
-                        </div>  
+                            <button onClick={() => {addToCart(name, price); setIsOpen(true)}}>Ajouter </button>
+                        </div>  ) : null
+
                     ))}
 			
             </ul>
