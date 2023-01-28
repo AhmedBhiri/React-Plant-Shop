@@ -1,18 +1,20 @@
 import '../styles/cart.css'
-
+import { useEffect } from 'react'
 
 
 
 function Cart({cart, updateCart, isOpen, setIsOpen}) {
     
-    
-    
+   
 
     const total = cart.reduce(
 		(acc, plantType) => acc + plantType.amount * plantType.price,
 		0
 	)
-
+         
+    useEffect(() => {
+        document.title = `LMJ: ${total}€ d'achats`
+    },[total])
 
     return isOpen ? (
         <div className='lmj-cart'>

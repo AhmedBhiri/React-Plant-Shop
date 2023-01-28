@@ -6,11 +6,18 @@ import logo from '../assets/logo.png'
 import Recommendation from './recommendation';
 import '../styles/layout.css';
 import Footer from "./Footer";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
+  
   const [isOpen, setIsOpen] = useState(false)
-  const [cart, updateCart] = useState([])
+  
+  const savedCart = localStorage.getItem('cart')
+	const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : [])
+	useEffect(() => {
+		localStorage.setItem('cart', JSON.stringify(cart))
+	}, [cart])
+  
   return (
     <div className="App">
 

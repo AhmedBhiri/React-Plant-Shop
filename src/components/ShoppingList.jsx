@@ -49,6 +49,8 @@ function ShoppingList({ cart, updateCart, isOpen, setIsOpen }){
                             name={name}
                             water={water}
                             light={light}
+                            price={price}
+                            category={category}
                             />
                             <button onClick={() => {addToCart(name, price); setIsOpen(true)}}>Ajouter </button>
                         </div>  ) : null

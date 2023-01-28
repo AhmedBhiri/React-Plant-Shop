@@ -1,10 +1,10 @@
-
+import '../styles/Categories.css'
 
 export default function Categories( {categories, activeCategory, setActiveCategory }) {
   
     return (
    
-    
+    <div className='lmj-categories'>
     <select value={activeCategory}
             onChange={(e) => setActiveCategory(e.target.value)}
             className='lmj-categories-select'>
@@ -13,7 +13,7 @@ export default function Categories( {categories, activeCategory, setActiveCatego
 			<option key={cat}>{cat}</option>
 			))}
 		
-    </select>
+    </select> </div>
   )
  
 }
